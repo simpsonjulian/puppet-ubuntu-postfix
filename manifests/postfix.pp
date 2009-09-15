@@ -1,0 +1,28 @@
+class mailserver::postfix {
+
+	package { 
+		"postfix": ensure => installed;
+	}
+
+	service { 
+		"postfix":
+		  enable => true,
+		  ensure => running,
+		  require => File["/etc/postfix"];
+	}
+
+	file { 
+		"/etc/postfix": 
+		  mode => 0755,
+		  notify => Service[postfix],
+		  source => "puppet:///files/etc/postfix",
+		  require => Package["postfix"];
+		  
+		  "/etc/postfix/main.cf":
+		    ensure => present, 
+		    content => template("main.cf.erb"),
+		    notify => Service["postfix"];
+		  
+		"/etc/mailname":	mode => 0644, content => "${domain}", notify => Service["postfix"];
+	}
+}
