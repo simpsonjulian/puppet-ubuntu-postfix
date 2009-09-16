@@ -20,7 +20,7 @@ class mailserver::postfix {
 		  
 		  "/etc/postfix/main.cf":
 		    ensure => present, 
-		    content => template("main.cf.erb"),
+		    content => template("postfix/main.cf.erb"),
 		    notify => Service["postfix"];
 		  
 		"/etc/mailname":	mode => 0644, content => "${domain}", notify => Service["postfix"];
