@@ -8,6 +8,7 @@ class mailserver::postfix {
 		"postfix":
 		  enable => true,
 		  ensure => running,
+                  provider => debian,
 		  require => File["/etc/postfix"];
 	}
 
