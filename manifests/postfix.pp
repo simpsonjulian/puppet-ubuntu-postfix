@@ -15,7 +15,7 @@ class mailserver::postfix {
 		"/etc/postfix": 
 		  mode => 0755,
 		  notify => Service[postfix],
-		  source => "puppet:///postfix/files/etc/postfix",
+		  source => "puppet:///postfix/etc/postfix",
 		  require => Package["postfix"];
 		  
 		  "/etc/postfix/main.cf":
